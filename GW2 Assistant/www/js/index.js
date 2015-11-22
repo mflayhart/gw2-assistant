@@ -33,8 +33,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        //app.receivedEvent('deviceready');
-        document.getElementById("bookmarkBtn").onclick = app.addBookmark;
+        app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -45,20 +44,6 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);        
-    },
-    addBookmark: function() {
-        console.log("Called add bookmark");
-        var win = function(d) {
-            console.log("Bookmark added!");
-        };
-        var fail = function(e) {
-            console.log(e)
-        }
-        var bookmark = document.getElementById("bookmark").value
-        cordova.exec(win, fail, "MyHybridPlugin", "addBookmark", [bookmark]);
+        console.log('Received Event: ' + id);
     }
-
 };
-
-app.initialize();
