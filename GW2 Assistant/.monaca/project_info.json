@@ -1,0 +1,24 @@
+{
+   "name": "helloworld",
+   "title-ja": "Hello Worldアプリ",
+   "title-en": "Hello World App",
+   "description-ja": "HelloWorldを表示するだけのアプリです。PhoneGapのデモも同梱しています。",
+   "description-en": "This is a simple HelloWorld demo app.",
+   "category": "Sample App",
+   "platform": ["ios", "android", "winrt"],
+   "preview_url": "https://monaca.github.io/project-templates/0-helloworld/www/index.html",
+   "framework_version": "3.5",
+   "cordova_version": "4.1",
+   "plugins": [
+      "mobi.monaca.plugins.Monaca",
+      "org.apache.cordova.device-motion",
+      "org.apache.cordova.camera",
+      "org.apache.cordova.device-orientation",
+      "org.apache.cordova.geolocation",
+      "org.apache.cordova.network-information",
+      "org.apache.cordova.vibration",
+      "org.apache.cordova.contacts",
+      "org.apache.cordova.splashscreen",
+      "org.apache.cordova.device"
+   ]
+}
