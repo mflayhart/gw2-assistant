@@ -6,13 +6,12 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.js"></script>
-    <script>
-        // PhoneGap event handler
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-            console.log("PhoneGap is ready");
-        }
-    </script>
+	    <script>
+	        // PhoneGap event handler
+	        document.addEventListener('deviceready', function() {
+			  navigator.splashscreen.hide();
+			});
+	    </script>
 </head>
 <body>
 
