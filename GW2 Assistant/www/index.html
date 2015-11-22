@@ -1,98 +1,49 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8">
-   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.css" />
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.0-rc.2/jquery.mobile-1.1.0-rc.2.min.js"></script>
-	<script src="components/loader.js"></script>
-    <link rel="stylesheet" href="components/loader.css">
-	    <script>
-	        // PhoneGap event handler
-	        document.addEventListener('deviceready', function() {
-			  navigator.splashscreen.hide();
-			});
-	    </script>
+	<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<script src="components/loader.js"></script>
+<link rel="stylesheet" href="components/loader.css">
+<link rel="stylesheet" href="assets/css/themes/default/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" href="assets/_assets/css/jqm-demos.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="assets/js/jquery.js"></script>
+<script src="assets/_assets/js/index.js"></script>
+<script src="assets/js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
 
 <!-- Start of first page: #one -->
-<div data-role="page" id="one">
+<div data-role="page" id="one" data-theme="b">
 
-	<div data-role="header">
-		<h1>GW2 Assistant</h1>
+	<div data-role="header" style="height: 7vh;">
+		
 	</div><!-- /header -->
 
-	<div data-role="content" data-theme="a">	
-		
-		<a href="pages/account/index.html" data-role="button" class="main-btn" data-transition="slide"><h1>Account</h1></a>
-		
-		<a href="pages/timer/index.html" data-role="button" class="main-btn" data-transition="slide"><h1>Boss Timer</h1></a>
-		
-		<a href="pages/map/index.html" data-role="button" class="main-btn" data-transition="slide"><h1>Map</h1></a>
-		
-		<a href="pages/guides/index.html" data-role="button" class="main-btn" data-transition="slide"><h1>Guides</h1></a>
-		
-		<a href="pages/gameinfo/index.html" data-role="button" class="main-btn" data-transition="slide"><h1>Game Info</h1></a>
-		<p>* * * * *</p>
-		<h2>One</h2>
-		
-		<p>I have an id of "one" on my page container. I'm first in the source order so I'm shown when the page loads.</p>	
-		
-		<p>This is a multi-page boilerplate template that you can copy to build your first jQuery Mobile page. This template contains multiple "page" containers inside, unlike a <a href="page-template.html"> single page template</a> that has just one page within it.</p>	
-		<p>Just view the source and copy the code to get started. All the CSS and JS is linked to the jQuery CDN versions so this is super easy to set up. Remember to include a meta viewport tag in the head to set the zoom level.</p>
-		<p>You link to internal pages by referring to the ID of the page you want to show. For example, to <a href="#two" >link</a> to the page with an ID of "two", my link would have a <code>href="#two"</code> in the code.</p>	
-
-		<h3>Show internal pages:</h3>
-		<p><a href="#two" data-role="button">Show page "two"</a></p>	
-		<p><a href="#popup"data-role="button" data-rel="dialog" data-transition="pop">Show page "popup" (as a dialog)</a></p>
+	<div data-role="content" style="padding:0;">	
+		<div id="main-nav">
+			<a href="pages/account/index.html" class="account-btn" data-transition="pop" data-prefetch><i class="fa fa-user fa-2x"></i><span>Account</span></a>
+			
+			<a href="pages/timer/index.html" class="timer-btn" data-transition="pop" data-prefetch><i class="fa fa-clock-o fa-2x"></i><span>Boss Timer</span></a>
+			
+			<a href="pages/map/index.html" class="map-btn" data-transition="pop" data-prefetch><i class="fa fa-map-marker fa-2x"></i><span>Map</span></a>
+			
+			<a href="pages/guides/index.html" class="guides-btn" data-transition="pop" data-prefetch><i class="fa fa-book fa-2x"></i><span>Guides</span></a>
+			
+			<a href="pages/gameinfo/index.html" class="gameinfo-btn" data-transition="pop" data-prefetch><i class="fa fa-info fa-2x"></i><span>Game Info</span></a>
+			
+			<a href="pages/community/index.html" class="community-btn" data-transition="pop" data-prefetch><i class="fa fa-users fa-2x"></i><span>Community</span></a>
+		</div>
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-theme="d">
-		<h4>Page Footer</h4>
-	</div><!-- /footer -->
+	<div data-role="footer" data-position="fixed" style="height: 5vh;">
+		
+	</div>
+	
 </div><!-- /page one -->
-
-
-<!-- Start of second page: #two -->
-<div data-role="page" id="two" data-theme="a" data-title="Page Two">
-
-	<div data-role="header">
-		<h1>Two</h1>
-	</div><!-- /header -->
-
-	<div data-role="content" data-theme="a">	
-		<h2>Two</h2>
-		<p>I have an id of "two" on my page container. I'm the second page container in this multi-page template.</p>	
-		<p>Notice that the theme is different for this page because we've added a few <code>data-theme</code> swatch assigments here to show off how flexible it is. You can add any content or widget to these pages, but we're keeping these simple.</p>	
-		<p><a href="#one" data-direction="reverse" data-role="button" data-theme="a">Back to page "one"</a></p>	
-		
-	</div><!-- /content -->
-	
-	<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div><!-- /footer -->
-</div><!-- /page two -->
-
-
-<!-- Start of third page: #popup -->
-<div data-role="page" id="popup">
-
-	<div data-role="header" data-theme="e">
-		<h1>Dialog</h1>
-	</div><!-- /header -->
-
-	<div data-role="content" data-theme="d">	
-		<h2>Popup</h2>
-		<p>I have an id of "popup" on my page container and only look like a dialog because the link to me had a <code>data-rel="dialog"</code> attribute which gives me this inset look and a <code>data-transition="pop"</code> attribute to change the transition to pop. Without this, I'd be styled as a normal page.</p>		
-		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to page "one"</a></p>	
-	</div><!-- /content -->
-	
-	<div data-role="footer">
-		<h4>Page Footer</h4>
-	</div><!-- /footer -->
-</div><!-- /page popup -->
 
 </body>
 </html>

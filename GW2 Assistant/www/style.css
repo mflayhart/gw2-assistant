@@ -1,0 +1,104 @@
+.ui-page-theme-b {
+	background-color: #171717;
+}
+
+.ui-page-theme-b .ui-bar-inherit {
+	background-color: #101010;
+}
+
+#main-nav {
+	height: 100%;
+	width:100%;
+	max-width: 700px;
+	margin:0 auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#main-nav a {
+	position: relative;
+	display: inline-block;
+	min-height: 115px;
+	height: 100%;
+	width: 40%;
+	max-width: 200px;
+	border: 1px solid #171717;
+	border-radius: 0px;
+	background-color: #1c1c1c;
+	margin:2vh;
+	text-decoration: none;
+	color:#e1e1e1;
+	font-family: opensans, sans-serif;
+/* 	font-variant: small-caps; */
+	text-transform: uppercase;
+	font-weight: 100;
+	font-size: 0.7em;
+	text-align: center;
+	padding-bottom: 5px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: 0;
+}
+
+#main-nav a:after {
+	position: absolute;
+	content: "";
+	display: block;
+	height: 25px;
+	bottom: 0;
+	width:100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: -1;
+}
+
+#main-nav a.account-btn {
+	background-image: url(assets/images/accountbg.jpg);
+}
+
+#main-nav a.timer-btn {
+	background-image: url(assets/images/bossbg.jpg);
+}
+
+#main-nav a.map-btn {
+	background-image: url(assets/images/mapbg.jpg);
+}
+
+#main-nav a.guides-btn {
+	background-image: url(assets/images/guidesbg.jpg);
+}
+
+#main-nav a.gameinfo-btn {
+	background-image: url(assets/images/gameinfobg.jpg);
+}
+
+#main-nav a.community-btn {
+	background-image: url(assets/images/communitybg.jpg);
+}
+
+#main-nav a span {
+	display: block;
+	min-height: 115px;
+	height: 115px;
+	vertical-align: bottom;
+}
+
+#main-nav a span:after {
+	position: relative;
+  content: "";
+  display: inline-block;
+  height: 100%;       
+  vertical-align: bottom;  
+  margin: 0 auto;
+  z-index: 1;
+}
+
+#main-nav a i {
+	display: none;
+position: absolute;
+top: 25%;
+font-size: 3em;
+bottom: 0;
+width:0.8em;
+margin-left:-0.4em;
+color: #dedede;
+}
