@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -26,6 +30,9 @@
             "PACKAGE_NAME": "com.example.helloworld"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.example.helloworld"
+        },
+        "cordova-plugin-device": {
             "PACKAGE_NAME": "com.example.helloworld"
         }
     },
@@ -44,6 +51,14 @@
             "id": "cordova-plugin-whitelist.whitelist",
             "pluginId": "cordova-plugin-whitelist",
             "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
         }
     ]
 }

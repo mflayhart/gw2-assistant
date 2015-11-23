@@ -72,4 +72,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <feature name="Device" value="Device" />
+    <rim:permissions>
+        <rim:permit>read_device_identifying_information</rim:permit>
+    </rim:permissions>
 </widget>

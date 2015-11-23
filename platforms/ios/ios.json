@@ -23,6 +23,10 @@
                         {
                             "xml": "<feature name=\"PushNotification\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -48,6 +52,9 @@
         },
         "phonegap-plugin-push": {
             "PACKAGE_NAME": "com.gw2assistant.mflayhart"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.gw2assistant.mflayhart"
         }
     },
     "dependent_plugins": {},
@@ -66,6 +73,14 @@
             "pluginId": "phonegap-plugin-push",
             "clobbers": [
                 "PushNotification"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
             ]
         }
     ]

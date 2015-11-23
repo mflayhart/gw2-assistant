@@ -4,13 +4,42 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "www/config.xml": {
+                "parents": {
+                    "/widget": [
+                        {
+                            "xml": "<feature name=\"Device\" value=\"Device\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/widget/rim:permissions": [
+                        {
+                            "xml": "<rim:permit>read_device_identifying_information</rim:permit>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.gw2assistant.mflayhart"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.gw2assistant.mflayhart"
         }
     },
     "dependent_plugins": {},
-    "modules": []
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
+            "clobbers": [
+                "device"
+            ]
+        }
+    ]
 }
