@@ -8,5 +8,8 @@
 ehthumbs.db
 Thumbs.db
 
+# My files #
+############
+.cordova
 cordova-cli
 cordova-plugman
