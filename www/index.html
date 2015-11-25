@@ -2,46 +2,54 @@
 <html>
 <head>
 	<meta charset="utf-8">
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-<link rel="stylesheet" href="assets/css/themes/default/jquery.mobile-1.4.5.min.css">
-<link rel="stylesheet" href="assets/_assets/css/jqm-demos.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<script src="assets/js/jquery.js"></script>
-<script src="assets/_assets/js/index.js"></script>
-<script src="assets/js/jquery.mobile-1.4.5.min.js"></script>
-<script src="phonegap.js"></script>
-<script src="http://localhost:8080/target/target-script-min.js#anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/themes/default/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="assets/_assets/css/jqm-demos.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="phonegap.js"></script>
 </head>
+
 <body>
 
 <!-- Start of first page: #one -->
-<div data-role="page" id="main" data-theme="b">
+<div data-role="page" id="index" data-theme="b">
 
-	<div data-role="header" style="height: 7vh;">
+	<div data-role="header">
 		
 	</div><!-- /header -->
 
 	<div data-role="content" style="padding:0;">	
 		<div id="main-nav">
-			<a href="pages/account/index.html" class="account-btn" data-transition="pop" data-prefetch><i class="fa fa-user fa-2x"></i><span>Account</span></a>
+			<a href="account.html" class="account-btn" data-transition="pop" data-prefetch><i class="fa fa-user fa-2x"></i><span>Account</span></a>
 			
-			<a href="pages/timer/index.html" class="timer-btn" data-transition="pop" data-prefetch><i class="fa fa-clock-o fa-2x"></i><span>Boss Timer</span></a>
+			<a href="timer.html" class="timer-btn" data-transition="pop" data-prefetch><i class="fa fa-clock-o fa-2x"></i><span>Boss Timer</span></a>
 			
-			<a href="pages/map/index.html" class="map-btn" data-transition="pop" data-prefetch><i class="fa fa-map-marker fa-2x"></i><span>Map</span></a>
+			<a href="map.html" class="map-btn" data-transition="pop" data-prefetch><i class="fa fa-map-marker fa-2x"></i><span>Map</span></a>
 			
-			<a href="pages/guides/index.html" class="guides-btn" data-transition="pop" data-prefetch><i class="fa fa-book fa-2x"></i><span>Guides</span></a>
+			<a href="guides.html" class="guides-btn" data-transition="pop" data-prefetch><i class="fa fa-book fa-2x"></i><span>Guides</span></a>
 			
-			<a href="pages/gameinfo/index.html" class="gameinfo-btn" data-transition="pop" data-prefetch><i class="fa fa-info fa-2x"></i><span>Game Info</span></a>
+			<a href="gameinfo.html" class="gameinfo-btn" data-transition="pop" data-prefetch><i class="fa fa-info fa-2x"></i><span>Game Info</span></a>
 			
-			<a href="pages/community/index.html" class="community-btn" data-transition="pop" data-prefetch><i class="fa fa-users fa-2x"></i><span>Community</span></a>
+			<a href="community.html" class="community-btn" data-transition="pop" data-prefetch><i class="fa fa-users fa-2x"></i><span>Community</span></a>
 		</div>
 	</div><!-- /content -->
-	
-	<div data-role="footer" data-position="fixed" style="height: 5vh;">
-		
-	</div>
+
+<div data-role="footer" data-id="mainFooter" data-position="fixed">
+    <div data-role="navbar" data-grid="d"  data-theme="a">
+        <ul class="apple-navbar-ui">
+            <li><a href="account.html" data-iconpos="top" data-icon="user">Account</a></li>
+            <li><a href="timer.html" data-iconpos="top" data-icon="clock">Timer</a></li>
+            <li><a href="map.html" data-iconpos="top" data-icon="location">Map</a></li>
+            <li><a href="guides.html" data-iconpos="top" data-icon="search">Guides</a></li>
+            <li><a href="gameinfo.html" data-iconpos="top" data-icon="info">Info</a></li>
+        </ul>
+    </div>
+</div>             
+
 	
 </div><!-- /page one -->
 

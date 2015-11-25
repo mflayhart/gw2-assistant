@@ -79,4 +79,10 @@
     <feature name="Device">
         <param name="firefoxos-package" value="Device" />
     </feature>
+    <feature name="Notification">
+        <param name="firefoxos-package" value="Notification" />
+    </feature>
+    <feature name="Compass">
+        <param name="firefoxos-package" value="Compass" />
+    </feature>
 </widget>

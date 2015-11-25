@@ -76,4 +76,6 @@
     <rim:permissions>
         <rim:permit>read_device_identifying_information</rim:permit>
     </rim:permissions>
+    <feature name="Notification" value="Notification" />
+    <feature name="Compass" value="Compass" />
 </widget>

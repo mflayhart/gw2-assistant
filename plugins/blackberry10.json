@@ -4,13 +4,34 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "www/config.xml": {
+                "parents": {
+                    "/widget": [
+                        {
+                            "xml": "<feature name=\"Notification\" value=\"Notification\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Compass\" value=\"Compass\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.gw2assistant.mflayhart"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.gw2assistant.mflayhart"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.gw2assistant.mflayhart"
+        },
+        "cordova-plugin-device-orientation": {
             "PACKAGE_NAME": "com.gw2assistant.mflayhart"
         }
     },

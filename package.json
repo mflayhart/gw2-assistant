@@ -1,0 +1,22 @@
+{
+  "name": "gw2-assistant",
+  "version": "1.0.0",
+  "description": "gw2 companion app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mflayhart@github.com/mflayhart/gw2-assistant.git"
+  },
+  "author": "Artigrafx, LLC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mflayhart/gw2-assistant/issues"
+  },
+  "homepage": "https://github.com/mflayhart/gw2-assistant#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}

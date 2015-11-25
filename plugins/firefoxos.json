@@ -4,13 +4,34 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"firefoxos-package\" value=\"Notification\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Compass\"><param name=\"firefoxos-package\" value=\"Compass\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.gw2assistant.mflayhart"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.gw2assistant.mflayhart"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.gw2assistant.mflayhart"
+        },
+        "cordova-plugin-device-orientation": {
             "PACKAGE_NAME": "com.gw2assistant.mflayhart"
         }
     },
