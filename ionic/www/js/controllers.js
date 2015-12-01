@@ -1,50 +1,132 @@
-angular.module('your_app_name.controllers', [])
+// Use for all service of application.
+
+var appControllers = angular.module('gw2assistant.controllers', [])
 
 .controller('AuthCtrl', function($scope, $ionicConfig) {
-
+	
 })
 
 // APP
-.controller('AppCtrl', function($scope, $ionicConfig) {
+.controller('AppCtrl', function($scope, $ionicConfig, AuthService, $ionicSideMenuDelegate) {
 
+  $scope.$on('$ionicView.enter', function(){
+    // Refresh user data & avatar
+    $scope.user = AuthService.getUser();
+  });
+  $scope.showMenu = function () {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
 })
+
+/*
+.controller('DashCtrl', function($scope) {})
+
+.controller('ChatsCtrl', function($scope, Chats) {
+  // With the new view caching in Ionic, Controllers are only called
+  // when they are recreated or on app start, instead of every page change.
+  // To listen for when this page is active (for example, to refresh data),
+  // listen for the $ionicView.enter event:
+  //
+  //$scope.$on('$ionicView.enter', function(e) {
+  //});
+
+  $scope.chats = Chats.all();
+  $scope.remove = function(chat) {
+    Chats.remove(chat);
+  };
+})
+
+.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+  $scope.chat = Chats.get($stateParams.chatId);
+})
+
+.controller('AccountCtrl', function($scope) {
+  $scope.settings = {
+    enableFriends: true
+  };
+})
+*/
 
 //LOGIN
-.controller('LoginCtrl', function($scope, $state, $templateCache, $q, $rootScope) {
-	$scope.doLogIn = function(){
-		$state.go('app.feeds-categories');
-	};
+.controller('LoginCtrl', function($scope, $state, $ionicLoading, AuthService, PushNotificationsService) {
+  $scope.user = {};
 
-	$scope.user = {};
+  $scope.doLogin = function(){
 
-	$scope.user.email = "john@doe.com";
-	$scope.user.pin = "12345";
+    $ionicLoading.show({
+      template: 'Logging in...'
+    });
 
-	// We need this for the form validation
-	$scope.selected_tab = "";
+    var user = {
+      userName: $scope.user.userName,
+      password: $scope.user.password
+    };
 
-	$scope.$on('my-tabs-changed', function (event, data) {
-		$scope.selected_tab = data.title;
-	});
+    AuthService.doLogin(user)
+    .then(function(user){
+      //success
+      $state.go('app.profile');
 
+      $ionicLoading.hide();
+    },function(err){
+      //err
+      $scope.error = err;
+      $ionicLoading.hide();
+    });
+  };
 })
 
-.controller('SignupCtrl', function($scope, $state) {
-	$scope.user = {};
+// FORGOT PASSWORD
+.controller('ForgotPasswordCtrl', function($scope, $state, $ionicLoading, AuthService) {
+  $scope.user = {};
 
-	$scope.user.email = "john@doe.com";
+  $scope.recoverPassword = function(){
 
-	$scope.doSignUp = function(){
-		$state.go('app.feeds-categories');
-	};
+    $ionicLoading.show({
+      template: 'Recovering password...'
+    });
+
+    AuthService.doForgotPassword($scope.user.userName)
+    .then(function(data){
+      if(data.status == "error"){
+        $scope.error = data.error;
+      }else{
+        $scope.message ="Link for password reset has been emailed to you. Please check your email.";
+      }
+      $ionicLoading.hide();
+    });
+  };
 })
 
-.controller('ForgotPasswordCtrl', function($scope, $state) {
-	$scope.recoverPassword = function(){
-		$state.go('app.feeds-categories');
-	};
 
-	$scope.user = {};
+// REGISTER
+.controller('RegisterCtrl', function($scope, $state, $ionicLoading, AuthService, PushNotificationsService) {
+  $scope.user = {};
+
+  $scope.doRegister = function(){
+
+    $ionicLoading.show({
+      template: 'Registering user...'
+    });
+
+    var user = {
+      userName: $scope.user.userName,
+      password: $scope.user.password,
+      email: $scope.user.email,
+      displayName: $scope.user.displayName
+    };
+
+    AuthService.doRegister(user)
+    .then(function(user){
+      //success
+      $state.go('app.profile');
+      $ionicLoading.hide();
+    },function(err){
+      //err
+      $scope.error = err;
+      $ionicLoading.hide();
+    });
+  };
 })
 
 .controller('RateApp', function($scope) {
@@ -256,6 +338,146 @@ angular.module('your_app_name.controllers', [])
 	};
 })
 
+// GUIDES
+//brings all guides categories
+.controller('GuidesCategoriesCtrl', function($scope, $http) {
+	$scope.guides_categories = [];
+
+	$http.get('guides-categories.json').success(function(response) {
+		$scope.guides_categories = response;
+	});
+})
+
+//bring specific category providers
+.controller('CategoryGuidesCtrl', function($scope, $http, $stateParams) {
+	$scope.category_sources = [];
+
+	$scope.categoryId = $stateParams.categoryId;
+
+	$http.get('guides-categories.json').success(function(response) {
+		var category = _.find(response, {id: $scope.categoryId});
+		$scope.categoryTitle = category.title;
+		$scope.category_sources = category.guides_sources;
+	});
+})
+
+//this method brings posts for a source provider
+.controller('GuidesEntriesCtrl', function($scope, $stateParams, $http, GuidesList, $q, $ionicLoading, BookMarkService) {
+	$scope.feed = [];
+
+	var categoryId = $stateParams.categoryId,
+			sourceId = $stateParams.sourceId;
+
+	$scope.doRefresh = function() {
+
+		$http.get('guides-categories.json').success(function(response) {
+
+			$ionicLoading.show({
+				template: 'Loading entries...'
+			});
+
+			var category = _.find(response, {id: categoryId }),
+					source = _.find(category.guides_sources, {id: sourceId });
+
+			$scope.sourceTitle = source.title;
+
+			GuidesList.get(source.url)
+			.then(function (result) {
+				$scope.guides = result.guides;
+				$ionicLoading.hide();
+				$scope.$broadcast('scroll.refreshComplete');
+			}, function (reason) {
+				$ionicLoading.hide();
+				$scope.$broadcast('scroll.refreshComplete');
+			});
+		});
+	};
+
+	$scope.doRefresh();
+
+	$scope.bookmarkPost = function(post){
+		$ionicLoading.show({ template: 'Post Saved!', noBackdrop: true, duration: 1000 });
+		BookMarkService.bookmarkGuidesPost(post);
+	};
+})
+
+.controller('TwitterCtrl', function($scope, $ionicPlatform, TwitterService) {
+    // 1
+    $scope.correctTimestring = function(string) {
+        return new Date(Date.parse(string));
+    };
+    // 2
+    $scope.showHomeTimeline = function() {
+        $scope.home_timeline = TwitterService.getHomeTimeline();
+    };
+    // 3
+    $scope.doRefresh = function() {
+        $scope.showHomeTimeline();
+        $scope.$broadcast('scroll.refreshComplete');
+    };
+    // 4
+    $ionicPlatform.ready(function() {
+        if (TwitterService.isAuthenticated()) {
+            $scope.showHomeTimeline();
+        } else {
+            TwitterService.initialize().then(function(result) {
+                if(result === true) {
+                    $scope.showHomeTimeline();
+                }
+            });
+        }
+    });
+})
+
+// POST
+.controller('PostCtrl', function($scope, post_data, $ionicLoading, PostService, AuthService, $ionicScrollDelegate) {
+  $scope.post = post_data.post;
+  $scope.comments = _.map(post_data.post.comments, function(comment){
+    if(comment.author){
+      PostService.getUserGravatar(comment.author.id)
+      .then(function(avatar){
+        comment.user_gravatar = avatar;
+      });
+      return comment;
+    }else{
+      return comment;
+    }
+  });
+  $ionicLoading.hide();
+
+  $scope.sharePost = function(link){
+    window.plugins.socialsharing.share('Check this post here: ', null, null, link);
+  };
+
+  $scope.addComment = function(){
+
+    $ionicLoading.show({
+      template: 'Submiting comment...'
+    });
+
+    PostService.submitComment($scope.post.id, $scope.new_comment)
+    .then(function(data){
+      if(data.status=="ok"){
+        var user = AuthService.getUser();
+
+        var comment = {
+          author: {name: user.data.username},
+          content:$scope.new_comment,
+          date: Date.now(),
+          user_gravatar : user.avatar,
+          id: data.comment_id
+        };
+        $scope.comments.push(comment);
+        $scope.new_comment = "";
+        $scope.new_comment_id = data.comment_id;
+        $ionicLoading.hide();
+        // Scroll to new post
+        $ionicScrollDelegate.scrollBottom(true);
+      }
+    });
+  };
+})
+
 // SETTINGS
 .controller('SettingsCtrl', function($scope, $ionicActionSheet, $state) {
 	$scope.airplaneMode = true;
@@ -368,6 +590,102 @@ angular.module('your_app_name.controllers', [])
 	};
 })
 
+/*
+// FORUMS
+.controller('ForumsCtrl', function($scope, $http, $ionicLoading, ForumsService, BookMarkService) {
+	$scope.posts = [];
+	$scope.page = 1;
+	$scope.totalPages = 1;
+
+	$scope.doRefresh = function() {
+		$ionicLoading.show({
+			template: 'Loading posts...'
+		});
+
+		//Always bring me the latest posts => page=1
+		PostService.getRecentPosts(1)
+		.then(function(data){
+			$scope.totalPages = data.pages;
+			$scope.posts = PostService.shortenPosts(data.posts);
+
+			$ionicLoading.hide();
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+	};
+
+	$scope.loadMoreData = function(){
+		$scope.page += 1;
+
+		PostService.getRecentPosts($scope.page)
+		.then(function(data){
+			//We will update this value in every request because new posts can be created
+			$scope.totalPages = data.pages;
+			var new_posts = PostService.shortenPosts(data.posts);
+			$scope.posts = $scope.posts.concat(new_posts);
+
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		});
+	};
+
+	$scope.moreDataCanBeLoaded = function(){
+		return $scope.totalPages > $scope.page;
+	};
+
+	$scope.bookmarkPost = function(post){
+		$ionicLoading.show({ template: 'Post Saved!', noBackdrop: true, duration: 1000 });
+		BookMarkService.bookmarkWordpressPost(post);
+	};
+
+	$scope.doRefresh();
+})
+
+// FORUMS POST
+.controller('ForumsPostCtrl', function($scope, post_data, $ionicLoading) {
+
+	$scope.post = post_data.post;
+	$ionicLoading.hide();
+
+	$scope.sharePost = function(link){
+		window.plugins.socialsharing.share('Check this post here: ', null, null, link);
+	};
+})
+
+
+.controller('ImagePickerCtrl', function($scope, $rootScope, $cordovaCamera) {
+
+	$scope.images = [];
+
+	$scope.selImages = function() {
+
+		window.imagePicker.getPictures(
+			function(results) {
+				for (var i = 0; i < results.length; i++) {
+					console.log('Image URI: ' + results[i]);
+					$scope.images.push(results[i]);
+				}
+				if(!$scope.$$phase) {
+					$scope.$apply();
+				}
+			}, function (error) {
+				console.log('Error: ' + error);
+			}
+		);
+	};
+
+	$scope.removeImage = function(image) {
+		$scope.images = _.without($scope.images, image);
+	};
+
+	$scope.shareImage = function(image) {
+		window.plugins.socialsharing.share(null, null, image);
+	};
+
+	$scope.shareAll = function() {
+		window.plugins.socialsharing.share(null, null, $scope.images);
+	};
+})
+*/
+
 // WORDPRESS
 .controller('WordpressCtrl', function($scope, $http, $ionicLoading, PostService, BookMarkService) {
 	$scope.posts = [];
@@ -462,4 +780,130 @@ angular.module('your_app_name.controllers', [])
 	};
 })
 
+// Leaflet
+.controller('MapController','$scope','$cordovaGeolocation','$stateParams','$ionicModal','$ionicPopup','LocationsService','InstructionsService', function($scope, $cordovaGeolocation, $stateParams, $ionicModal, $ionicPopup, LocationsService, InstructionsService) {
+
+      /**
+       * Once state loaded, get put map on scope.
+       */
+      $scope.$on('$stateChangeSuccess', function() {
+
+        //$scope.locations = LocationsService.savedLocations;
+        //$scope.newLocation;
+
+        if(!InstructionsService.instructions.newLocations.seen) {
+
+          var instructionsPopup = $ionicPopup.alert({
+            title: 'Add Locations',
+            template: InstructionsService.instructions.newLocations.text
+          });
+          instructionsPopup.then(function(res) {
+            InstructionsService.instructions.newLocations.seen = true;
+            });
+
+        }
+
+        $scope.map = {
+          defaults: {
+            tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+            maxZoom: 18,
+            zoomControlPosition: 'bottomleft'
+          },
+          markers : {},
+          events: {
+            map: {
+              enable: ['context'],
+              logic: 'emit'
+            }
+          }
+        };
+
+        $scope.goTo(0);
+
+      });
+
+      var Location = function() {
+        if ( !(this instanceof Location) ) return new Location();
+        this.lat  = "";
+        this.lng  = "";
+        this.name = "";
+      };
+
+      $ionicModal.fromTemplateUrl('templates/addLocation.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+          $scope.modal = modal;
+        });
+
+      /**
+       * Detect user long-pressing on map to add new location
+       */
+      $scope.$on('leafletDirectiveMap.contextmenu', function(event, locationEvent){
+        $scope.newLocation = new Location();
+        $scope.newLocation.lat = locationEvent.leafletEvent.latlng.lat;
+        $scope.newLocation.lng = locationEvent.leafletEvent.latlng.lng;
+        $scope.modal.show();
+      });
+
+      $scope.saveLocation = function() {
+        LocationsService.savedLocations.push($scope.newLocation);
+        $scope.modal.hide();
+        $scope.goTo(LocationsService.savedLocations.length - 1);
+      };
+
+      /**
+       * Center map on specific saved location
+       * @param locationKey
+       */
+      $scope.goTo = function(locationKey) {
+
+        var location = LocationsService.savedLocations[locationKey];
+
+        $scope.map.center  = {
+          lat : location.lat,
+          lng : location.lng,
+          zoom : 12
+        };
+
+        $scope.map.markers[locationKey] = {
+          lat:location.lat,
+          lng:location.lng,
+          message: location.name,
+          focus: true,
+          draggable: false
+        };
+
+      };
+
+      /**
+       * Center map on user's current position
+       */
+      $scope.locate = function(){
+
+        $cordovaGeolocation
+          .getCurrentPosition()
+          .then(function (position) {
+            $scope.map.center.lat  = position.coords.latitude;
+            $scope.map.center.lng = position.coords.longitude;
+            $scope.map.center.zoom = 15;
+
+            $scope.map.markers.now = {
+              lat:position.coords.latitude,
+              lng:position.coords.longitude,
+              message: "You Are Here",
+              focus: true,
+              draggable: false
+            };
+
+          }, function(err) {
+            // error
+            console.log("Location error!");
+            console.log(err);
+          });
+
+      };
+
+    })
+    
 ;

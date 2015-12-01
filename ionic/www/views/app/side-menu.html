@@ -17,12 +17,38 @@
         <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
           <div class="user-image-container">
             <pre-img ratio="_1_1" helper-class="rounded-image">
-              <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load>
+              <img class="user-image" ng-src="{{user.avatar}}" spinner-on-load>
           	</pre-img>
           </div>
-          <h2 class="greeting">Hi Brynn</h2>
+          <h2 class="greeting">Hi {{user.data.username}}</h2>
           <p class="message">Welcome back</p>
         </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.account">
+          <i class="icon ion-home"></i>
+          <h2 class="menu-text">Account</h2>
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.timer">
+          <i class="icon ion-ios-clock"></i>
+          <h2 class="menu-text">Boss Timer</h2>
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.map">
+          <i class="icon ion-map"></i>
+          <h2 class="menu-text">Map</h2>
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.guides-categories">
+          <i class="icon ion-ios-bookmarks"></i>
+          <h2 class="menu-text">Guides</h2>
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.gameinfo">
+          <i class="icon ion-information"></i>
+          <h2 class="menu-text">Game Info</h2>
+        </ion-item>
+<!--
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.community">
+          <i class="icon ion-quote"></i>
+          <h2 class="menu-text">Community</h2>
+        </ion-item>
+-->
         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.bookmarks">
           <i class="icon ion-bookmark"></i>
           <h2 class="menu-text">Saved for later</h2>
@@ -43,10 +69,6 @@
           <i class="icon ion-asterisk"></i>
           <h2 class="menu-text">Miscellaneous</h2>
         </ion-item>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.forms">
-          <i class="icon ion-document"></i>
-          <h2 class="menu-text">Forms</h2>
-        </ion-item>
         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.settings">
           <i class="icon ion-gear-a"></i>
           <h2 class="menu-text">Settings</h2>
@@ -54,5 +76,31 @@
 
     </ion-list>
     </ion-content>
+    
   </ion-side-menu>
+  
 </ion-side-menus>
+
+<!--
+<ion-tabs class="tabs-icon-top tabs-dark">
+
+        <ion-tab title="Boss" icon="ion-ios-clock" href="#/main/timer">
+
+        </ion-tab>
+        <ion-tab title="Map" icon="ion-map">
+
+        </ion-tab>
+        <ion-tab title="Guides" icon="ion-ios-bookmarks" href="#/main/map">
+
+        </ion-tab>
+        <ion-tab title="Game Info" icon="ion-information-circled" href="#/map">
+
+        </ion-tab>
+        <ion-tab title="Board" icon="ion-quote" href="#/index/account">
+
+        </ion-tab>
+
+
+</ion-tabs>
+-->
+

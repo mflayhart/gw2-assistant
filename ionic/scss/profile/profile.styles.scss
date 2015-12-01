@@ -1,26 +1,33 @@
 .profile-view
 {
-  background-color: $profile-bg !important;
+  background: $profile-bg !important;
 
   .profile-container
   {
     margin: 0px auto;
-    margin-top: 6vh;
+    margin-top: 0vh;
     text-align: center;
   }
 
   .user-image-container
   {
-    width: $image-width;
+    width: 20vh;
+    height: 20vh;
 
     .user-image
     {
-      border-top: 1px solid $content-color;
+      border: 1px solid $content-color;
       padding: 8px;
       background-color: $profile-bg;
       width: 100%;
       border-radius: 50%;
     }
+    
+  }
+
+  h5 {
+	  font: 300 16px $font2;
+	  padding-left: 1vh;
   }
 
   .user-name
@@ -28,22 +35,17 @@
     font-size: 20px;
   }
 
-  .user-twitter
-  {
-    margin-top: 5px;
-  }
-
   .top-content
   {
     border-bottom: 1px solid $content-color;
     position: relative;
     height: 20vh;
-    margin-bottom: 25vh;
+
   }
 
   .user-background-image-outer
   {
-    height: 20vh;
+    height: 0vh;
     position: absolute;
     width: 100%;
     left: 0;

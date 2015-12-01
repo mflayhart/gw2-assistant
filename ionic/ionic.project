@@ -1,6 +1,6 @@
 {
-  "name": "ionFullApp",
-  "app_id": "",
+  "name": "gw2assistant",
+  "app_id": "d14ce344",
   "gulpStartupTasks": [
     "sass",
     "templatecache",

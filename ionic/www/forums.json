@@ -1,0 +1,223 @@
+{
+	"status": "ok",
+	"count": 4,
+	"forums": [{
+		"id": 510,
+		"type": "forum",
+		"slug": "website",
+		"url": "http:\/\/www.gw2assistant.com\/?post_type=forum&#038;p=510",
+		"status": "publish",
+		"title": "Website",
+		"content": "",
+		"excerpt": "",
+		"date": "2015-11-04 10:34:36",
+		"modified": "2015-11-04 10:34:36",
+		"author": {
+			"id": "1",
+			"slug": "1",
+			"display_name": "admin",
+			"email": "mflayhart@gmail.com",
+			"first_name": "",
+			"last_name": "",
+			"url": ""
+		},
+		"topic_count": 0,
+		"topics": [],
+		"post_count": 0
+	}, {
+				"id": 512,
+				"type": "forum",
+				"slug": "bugsissues",
+				"url": "http:\/\/www.gw2assistant.com\/?post_type=forum&#038;p=512",
+				"status": "publish",
+				"title": "Bugs\/Issues",
+				"content": "",
+				"excerpt": "",
+				"date": "2015-11-04 10:35:10",
+				"modified": "2015-11-04 10:35:10",
+				"author": {
+					"id": "1",
+					"slug": "1",
+					"display_name": "admin",
+					"email": "mflayhart@gmail.com",
+					"first_name": "",
+					"last_name": "",
+					"url": ""
+				},
+				"topic_count": 1,
+				"topics": [{
+					"id": 613,
+					"type": "topic",
+					"slug": "test-2",
+					"url": "http:\/\/www.gw2assistant.com\/forums\/topic\/test-2\/",
+					"status": "publish",
+					"title": "Test",
+					"content": "Filler",
+					"excerpt": "",
+					"date": "2015-11-29 19:18:39",
+					"modified": "2015-11-29 19:18:39",
+					"author": {
+						"id": "1",
+						"slug": "1",
+						"display_name": "admin",
+						"email": "mflayhart@gmail.com",
+						"first_name": "",
+						"last_name": "",
+						"url": ""
+					},
+					"reply_count": 1,
+					"reply": [{
+						"id": 613,
+						"type": "topic",
+						"slug": "test-2",
+						"url": "http:\/\/www.gw2assistant.com\/forums\/topic\/test-2\/",
+						"status": "publish",
+						"title": "",
+						"content": "Filler",
+						"excerpt": "",
+						"date": "2015-11-29 19:18:39",
+						"modified": "2015-11-29 19:18:39",
+						"author": {
+							"id": "1",
+							"slug": "1",
+							"display_name": "admin",
+							"email": "mflayhart@gmail.com",
+							"first_name": "",
+							"last_name": "",
+							"url": ""
+						}
+					}]
+				}],
+				"post_count": 1
+	}, {
+		"id": 514,
+		"type": "forum",
+		"slug": "app",
+		"url": "http:\/\/www.gw2assistant.com\/?post_type=forum&#038;p=514",
+		"status": "publish",
+		"title": "App",
+		"content": "",
+		"excerpt": "",
+		"date": "2015-11-04 10:35:40",
+		"modified": "2015-11-04 10:35:40",
+		"author": {
+			"id": "1",
+			"slug": "1",
+			"display_name": "admin",
+			"email": "mflayhart@gmail.com",
+			"first_name": "",
+			"last_name": "",
+			"url": ""
+		},
+		"topic_count": 0,
+		"topics": [],
+		"post_count": 0
+	}, {
+		"id": 516,
+		"type": "forum",
+		"slug": "bugsissues",
+		"url": "http:\/\/www.gw2assistant.com\/?post_type=forum&#038;p=516",
+		"status": "publish",
+		"title": "Bugs\/Issues",
+		"content": "",
+		"excerpt": "",
+		"date": "2015-11-04 10:36:03",
+		"modified": "2015-11-04 10:36:03",
+		"author": {
+			"id": "1",
+			"slug": "1",
+			"display_name": "admin",
+			"email": "mflayhart@gmail.com",
+			"first_name": "",
+			"last_name": "",
+			"url": ""
+		},
+		"topic_count": 2,
+		"topics": [{
+			"id": 614,
+			"type": "topic",
+			"slug": "test2",
+			"url": "http:\/\/www.gw2assistant.com\/forums\/topic\/test2\/",
+			"status": "publish",
+			"title": "Test2",
+			"content": "fillerasdf",
+			"excerpt": "",
+			"date": "2015-11-29 19:20:49",
+			"modified": "2015-11-29 19:20:49",
+			"author": {
+				"id": "1",
+				"slug": "1",
+				"display_name": "admin",
+				"email": "mflayhart@gmail.com",
+				"first_name": "",
+				"last_name": "",
+				"url": ""
+			},
+			"reply_count": 1,
+			"reply": [{
+				"id": 614,
+				"type": "topic",
+				"slug": "test2",
+				"url": "http:\/\/www.gw2assistant.com\/forums\/topic\/test2\/",
+				"status": "publish",
+				"title": "",
+				"content": "fillerasdf",
+				"excerpt": "",
+				"date": "2015-11-29 19:20:49",
+				"modified": "2015-11-29 19:20:49",
+				"author": {
+					"id": "1",
+					"slug": "1",
+					"display_name": "admin",
+					"email": "mflayhart@gmail.com",
+					"first_name": "",
+					"last_name": "",
+					"url": ""
+				}
+			}]
+		}, {
+			"id": 610,
+			"type": "topic",
+			"slug": "test",
+			"url": "http:\/\/www.gw2assistant.com\/forums\/topic\/test\/",
+			"status": "publish",
+			"title": "test",
+			"content": "test",
+			"excerpt": "",
+			"date": "2015-11-26 07:49:20",
+			"modified": "2015-11-26 07:49:20",
+			"author": {
+				"id": null,
+				"slug": null,
+				"display_name": null,
+				"email": null,
+				"first_name": "",
+				"last_name": "",
+				"url": null
+			},
+			"reply_count": 1,
+			"reply": [{
+				"id": 610,
+				"type": "topic",
+				"slug": "test",
+				"url": "http:\/\/www.gw2assistant.com\/forums\/topic\/test\/",
+				"status": "publish",
+				"title": "",
+				"content": "test",
+				"excerpt": "",
+				"date": "2015-11-26 07:49:20",
+				"modified": "2015-11-26 07:49:20",
+				"author": {
+					"id": null,
+					"slug": null,
+					"display_name": null,
+					"email": null,
+					"first_name": "",
+					"last_name": "",
+					"url": null
+				}
+			}]
+		}],
+		"post_count": 2
+	}]
+}

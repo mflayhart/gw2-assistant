@@ -1,26 +1,159 @@
 <ion-view class="profile-view">
   <ion-nav-title>
-    <span>Profile</span>
-  </ion-nav-title>
-  <ion-content>
-    <div class="top-content row">
+<!--
       <div class="profile-container">
         <div class="user-image-container">
           <pre-img ratio="_1_1" helper-class="rounded-image">
-            <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load>
+            <img class="user-image profile-page" data-ng-src="{{user.avatar}}" spinner-on-load>
           </pre-img>
         </div>
-        <div class="user-name">Brynn Evans</div>
-        <div class="user-twitter">@brynn</div>
+        <div class="user-name">Hi {{user.data.username}}</div>
       </div>
-      <div class="user-background-image-outer">
-        <div multi-bg="['https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg']"></div>
-      </div>
-    </div>
-    <div class="bottom-content">
-      <div class="user-bio">
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-      </div>
-    </div>
+-->
+<span>{{user.data.username}}'s Dashboard</span>
+  </ion-nav-title>
+  <ion-content id="menu-dashboard-content">
+
+Check if user has gw2 api key stored. if not, display:
+<div dynamic-anchor-fix>
+	<a class="item item-icon-left item-icon-right" href="https://account.arena.net/applications">
+		<i class="icon ion-ios-browsers-outline"></i>
+			<div>
+				<span class="title">Get API Key</span>
+				<p class="description">Write further description later</p>
+			</div>
+		<i class="icon ion-arrow-right-c"></i>
+	</a>
+</div>
+
+    <!--panel section-->
+        <div class="menu-panel">
+
+	        <div class="row heading">
+	        	<h5>Account</h5>
+	        </div>
+            
+            <div class="row">
+                <div class="col-33" ng-click="showToast('Image')">
+                    <i class="fa fa-picture-o"></i>
+
+                    <p>General</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Music')">
+                    <i class="fa fa fa-music"></i>
+
+                    <p>Characters</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Camera')">
+                    <i class="fa fa fa-camera"></i>
+
+                    <p>Stash</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-33" ng-click="showToast('Image')">
+                    <i class="ion-arrow-graph-up-right"></i>
+
+                    <p>Statistics</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Music')">
+                    <i class="fa fa fa-music"></i>
+
+                    <p>Characters</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Camera')">
+                    <i class="ion-android-settings"></i>
+
+                    <p>Settings</p>
+                </div>
+            </div>
+			
+	        <div class="row heading">
+	        	<h5>Guild Wars 2</h5>
+	        </div>
+            
+            <div class="row">
+                <div class="col-33" ng-click="showToast('Video')">
+                    <i class="fa fa-video-camera"></i>
+
+                    <p>Unlocks</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Setting')">
+                    <i class="fa fa-cog"></i>
+
+                    <p>Trading Post</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Contract')">
+                    <i class="fa fa-users"></i>
+
+                    <p>Achievements</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-33" ng-click="showToast('Inbox')">
+                    <i class="fa fa-inbox"></i>
+
+                    <p>Inbox</p>
+                </div>
+                <div class="col-33" ng-click="showToast('Card')">
+                    <i class="fa fa-credit-card"></i>
+
+                    <p>Card</p>
+                </div>
+                <div class="col-33" ng-click="showToast('More')">
+                    <i class="fa fa-ellipsis-h"></i>
+
+                    <p>More</p>
+                </div>
+            </div>
+        </div><!--end panel section-->
+
+        <!--panel footer section-->
+        <div class="menu-dashboard-footer">
+            <md-whiteframe class="md-whiteframe-z1" layout ng-click="showToast('Wordpress Blog')">
+                <div class="row">
+                    <div class="col-10">
+                        <i class="fa fa-wordpress"></i>
+                    </div>
+                    <div class="col-80">
+                        Wordpress Blog
+                    </div>
+                    <div class="col-10">
+                        <i class="fa fa-angle-right"></i>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z1" layout ng-click="showToast('Google Connect')">
+                <div class="row">
+                    <div class="col-10">
+                        <i class="fa fa-google-plus"></i>
+                    </div>
+                    <div class="col-80">
+                        Google Connect
+                    </div>
+                    <div class="col-10">
+                        <i class="fa fa-angle-right"></i>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe class="md-whiteframe-z1" layout ng-click="showToast('Facebook Connect')">
+                <div class="row">
+                    <div class="col-10">
+                        <i class="fa fa-facebook"></i>
+                    </div>
+                    <div class="col-80">
+                        Facebook Connect
+                    </div>
+                    <div class="col-10">
+                        <i class="fa fa-angle-right"></i>
+                    </div>
+                </div>
+            </md-whiteframe>
+
+        </div><!--end panel footer section-->
   </ion-content>
 </ion-view>

@@ -1,0 +1,14 @@
+$guides-category-bg: $theme-color-3;
+$guides-category-color: #FFFFFF;
+
+//guides entries
+$entry-heading-color: $theme-color-3;
+$entry-title-color: #FFFFFF;
+
+$entry-excerpt-lines: 5;
+$entry-font-size: 14px;
+
+$guides-categories-img-ratio: 1 1;
+
+// Merge maps
+$pre-img-ratios: append($pre-img-ratios, $guides-categories-img-ratio);

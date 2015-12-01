@@ -1,0 +1,540 @@
+<ion-view class="timer-view">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <span>Boss Timer</span>
+  </ion-nav-title>
+  <ion-content>
+
+<style type="text/css">
+	@import url("http://app.gw2a.com/timer/gw2t.css");
+</style>
+
+<style type="text/css">
+	@import url("http://app.gw2a.com/timer/style/tile.css");
+</style>
+
+	<div id="itemConsole">
+		<div id="cslButtons">
+			<kbd id="cslClose" class="curClick" title="<dfn>Close Console<dfn>"></kbd>
+			<kbd id="cslSelect" class="curClick" title="<dfn>Select Console<dfn>"></kbd>
+		</div>
+		<div id="cslContent"></div>
+	</div>
+<!--
+	<div id="itemWarning">
+		If you can read this then <strong>maybe</strong>:<br />
+		- You are still loading the website (slowly); ignore this message.<br />
+		- You are using Internet Explorer 10 or lower; please <a href="http://microsoft.com/ie">upgrade</a> to IE11 or higher.<br />
+		- Your browser's adblocker is blocking the leaflet.js map script; please whitelist it.<br />
+		- This web application encountered a bug; try refreshing, or <a href="bin/clear.html">clearing</a> its localStorage.<br />
+		Do you want to <a href="http://forum.renaka.com/topic/5476238/">report</a> this problem?<br />
+	</div>
+-->
+	<iframe id="jsTTSFrame"></iframe>
+	<audio id="jsTTSAudio"></audio>
+	test
+	<main id="windowMain">
+	<div id="panelMap" class="panelMain">
+		<!-- Map, the dummy nbsp is required or Leaflet won't show
+		==================================================================== -->
+		<section id="mapPane">&nbsp;
+			<div id="ctxMap" class="ctxMenu">
+				<ul>
+					<li id="ctxMapCenter">Center map</li>
+					<li id="ctxMapToggleCompletion">Toggle world completion</li>
+					<li id="ctxMapDrawCompletion">Draw completion route</li>
+					<li id="ctxMapClearPins">Clear pins</li>
+				</ul>
+			</div>
+			<article id="paneHUDMap">
+			<div id="itemDashboard">
+				<kbd id="dsbClose" class="curClick" title="Close the dashboard. You can hide this permanently by going to Options page, Map section."></kbd>
+				<div id="dsbAnnouncement"></div>
+				<div id="dsbCountdown"></div>
+				<div id="dsbSale"></div>
+				<div id="dsbStory" class="jsScrollable"></div>
+			</div>
+			<time id="itemMapTime"></time>
+			<div id="itemMapCoordinates">
+				<input id="mapCoordinatesMouse" type="text" />
+				<input id="mapCoordinatesCopy" type="text" />
+				<input id="mapCoordinatesName" type="text" />
+			</div>
+			<div id="itemMapPeripheralNorth" class="itemMapPeripheral">
+				<div id="mapQuickURL">
+					<u><a class="jsTranslate linkExternal" title="<dfn>Go to Forum</dfn>" href="http://forum.renaka.com/forum/368355/">news</a></u><span> /</span>
+					<u><a class="jsTranslate" title="<dfn>Switch to Simple Mode (clock only)</dfn><br />gw2timer.com/s<br /><div class='mapLoc'><img src='http://i.imgur.com/ERlYRR3.png' /></div>" href="./?mode=Simple">simple</a></u><span> /</span>
+					<u><a class="jsTranslate" title="<dfn>Switch to Mobile Mode (right panel only)</dfn><br />/assets/gw2timer-app/m<br /><div class='mapLoc'><img src='http://i.imgur.com/0QsaeY7.png' /></div>" href="./?mode=Mobile">mobile</a></u><span> /</span>
+					<u><a class="jsTranslate" title="<dfn>Switch to Tile Mode (timers only)</dfn><br />/assets/gw2timer-app/t<br /><div class='mapLoc'><img src='http://i.imgur.com/SDseVJE.png' /></div>" href="./?mode=Tile">tile</a></u>
+				</div>
+				<!--<div id="mapSwitch" class="mapHUDContainer">
+					<img id="mapSwitchButton" class="mapHUDButton" title="<dfn> Click to WVW </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/wvw.png" alt="display" />
+				</div>-->
+				<div id="mapGPS" class="mapHUDContainer">
+					<img id="mapGPSButton" class="mapHUDButton" title="<dfn> Click to Center Character </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/gps.png" alt="GPS" />
+					<div id="mapGPSPopup" class="mapHUDPopup cntComposition">
+						<label title="Automatically scroll the map to your in-game location."><img data-src="http://app.gw2a.com/shared/gw2icons/map/gps.png" /><input id="opt_bol_followCharacter" type="checkbox" />Follow Game Character</label>
+						<label title="Automatically move the map character pin to your in-game location."><img data-src="http://app.gw2a.com/shared/gw2icons/map/pin_character.png" /><input id="opt_bol_displayCharacter" type="checkbox" />Display Character Pin</label>
+						<label title="Milliseconds before your character is pinpointed again.<br />This should not be faster than the overlay's rate."><input id="opt_int_msecGPSRefresh" type="number" min="50" max="1000" step="10" /> GPS Rate (ms)</label>
+					</div>
+				</div>
+				<div id="mapOptions" class="mapHUDContainer">
+					<img id="mapDisplayButton" class="mapHUDButton" title="<dfn> Click to Expand Map </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/display.png" alt="display" />
+					<div id="mapOptionsPopup" class="mapHUDPopup cntComposition">
+						<div id="mapOptionsDisplay">
+							<label title="Show/Hide all icons listed below.<br /><dfn>Right click on the map</dfn> to show the world completion route."><img data-src="http://app.gw2a.com/shared/gw2icons/map/completion.png" /><input id="opt_bol_showWorldCompletion" type="checkbox" /> Show completion</label>
+							<div id="mapOptionsCompletion">
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/ui/question.png" /><input id="opt_bol_showZoneOverview" type="checkbox" /> Zone Overview</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/scope.png" /><input id="opt_bol_displaySectors" type="checkbox" /> Sector Names</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/waypoint_h.png" /><input id="opt_bol_displayWaypoints" type="checkbox" /> Waypoints</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/landmark.png" /><input id="opt_bol_displayPOIs" type="checkbox" /> POIs</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/vista.png" /><input id="opt_bol_displayVistas" type="checkbox" /> Vistas</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/challenge.png" /><input id="opt_bol_displayChallenges" type="checkbox" /> Hero Challenges</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/heart.png" /><input id="opt_bol_displayHearts" type="checkbox" /> Renown Hearts</label>
+							</div>
+							<label title="Show/Hide possible event locations.<br />Will increase initial site load time if enabled.<br />Most in-game events have a cooldown of 15 minutes.<br />They can become active by simply being near them."><img data-src="http://app.gw2a.com/shared/gw2icons/event/swords.png" /><input id="opt_bol_displayEvents" type="checkbox" /> Dynamic Events</label>
+						</div>
+						<div id="mapOptionsOther">
+							<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/floor.png" /><input id="opt_int_setFloor" type="range" min="0" max="3" step="1" title="Set map floor level.<br />Example: Verdant Brink has multiple floors." /></label>
+							<label title="Show/Hide region-colored borders over zones."><img data-src="http://app.gw2a.com/shared/gw2icons/map/border.png" /><input id="opt_bol_showZoneBorders" type="checkbox" /> Show zone borders</label>
+							<label title="Show/Hide gateways between zones."><img data-src="http://app.gw2a.com/shared/gw2icons/map/gateway_gate.png" /><input id="opt_bol_showZoneGateways" type="checkbox" /> Show zone gateways</label>
+							<label title="Double click on the map to lay/remove a personal pin.<br />This option will draw a path from these pins."><img data-src="http://app.gw2a.com/shared/gw2icons/map/pin_white.png" /><input id="opt_bol_showPersonalPaths" type="checkbox" /> Show personal paths</label>
+							<label title="Show/Hide the colored chain paths of world bosses."><img data-src="http://app.gw2a.com/shared/gw2icons/map/pin_green.png" /><input id="opt_bol_showChainPaths" type="checkbox" /> Show chain paths</label>
+							<label title="Automatically scroll the map to the next predicted world boss event.<br />You'll need to be on the chains page."><img data-src="http://app.gw2a.com/shared/gw2icons/map/path.png" /><input id="opt_bol_tourPrediction" type="checkbox" /> Tour predicted events</label>
+							<br />
+							<label title="Show/Hide the side app panel."><img data-src="http://app.gw2a.com/shared/gw2icons/map/panel.png" /><input id="opt_bol_showPanel" type="checkbox" /> Show app panel</label>
+							<label title="App panel on the right or left side of the map?"><img data-src="http://app.gw2a.com/shared/gw2icons/map/align.png" /><input id="opt_bol_alignPanelRight" type="checkbox" /> Align panel to the right</label>
+						</div>
+					</div>
+				</div>
+				<div id="mapZones" class="mapHUDContainer">
+					<img id="mapCompassButton" class="mapHUDButton" title="<dfn> Click to Center Map </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/compass.png" alt="compass" />
+					<div id="mapZonesPopup" class="mapHUDPopup cntComposition">
+						<div id="mapZoneList" class="mapZoneLinks">
+							<div>
+							<h2 data-region="magus"></h2>
+							<ul>
+								<li data-zone="verdant"></li>
+								<li data-zone="auric"></li>
+								<li data-zone="tangled"></li>
+								<li data-zone="dragon"></li>
+							</ul>
+							<h2 data-region="wastes"></h2>
+							<ul>
+								<li data-zone="dry"></li>
+								<li data-zone="silverwastes"></li>
+							</ul>
+							<h2 data-region="jungle"></h2>
+							<ul>
+								<li data-zone="rata"></li>
+								<li data-zone="grove"></li>
+								<li data-zone="metrica"></li>
+								<li data-zone="caledon"></li>
+								<li data-zone="brisban"></li>
+								<li data-zone="sparkfly"></li>
+								<li data-zone="maelstrom"></li>
+							</ul>
+							<h2 data-region="orr"></h2>
+							<ul>
+								<li data-zone="straits"></li>
+								<li data-zone="malchor"></li>
+								<li data-zone="cursed"></li>
+							</ul>
+							</div>
+							<div>
+							<h2 data-region="kryta"></h2>
+							<ul>
+								<li data-zone="divinity"></li>
+								<li data-zone="lion"></li>
+								<li data-zone="queensdale"></li>
+								<li data-zone="kessex"></li>
+								<li data-zone="gendarran"></li>
+								<li data-zone="harathi"></li>
+								<li data-zone="bloodtide"></li>
+								<li data-zone="southsun"></li>
+							</ul>
+							<h2 data-region="shiverpeaks"></h2>
+							<ul>
+								<li data-zone="hoelbrak"></li>
+								<li data-zone="wayfarer"></li>
+								<li data-zone="snowden"></li>
+								<li data-zone="lornar"></li>
+								<li data-zone="dredgehaunt"></li>
+								<li data-zone="timberline"></li>
+								<li data-zone="frostgorge"></li>
+							</ul>
+							<h2 data-region="ascalon"></h2>
+							<ul>
+								<li data-zone="citadel"></li>
+								<li data-zone="plains"></li>
+								<li data-zone="diessa"></li>
+								<li data-zone="fields"></li>
+								<li data-zone="marches"></li>
+								<li data-zone="blazeridge"></li>
+								<li data-zone="fireheart"></li>
+							</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="itemMapPeripheralSouth" class="itemMapPeripheral">
+				<a class="linkExternal" title="<dfn>Download the app to run GW2Timer in game!</dfn><br /><div class='mapLoc'><img src='http://i.imgur.com/mZ1Tboj.png' /></div>" href="http://forum.renaka.com/topic/5546166/">
+					<img id="itemLogo" src="http://app.gw2a.com/shared/gw2icons/ui/favicon.png" alt="Overlay Application" />gw2timer.com <u>overlay</u>
+				</a>
+			</div>
+			</article>
+		</section>
+		<section id="wvwPane">&nbsp;
+			<article id="paneHUDWvW">
+			<div id="itemWvWCoordinates">
+				<input id="wvwCoordinatesMouse" type="text" />
+				<input id="wvwCoordinatesCopy" type="text" />
+				<input id="wvwCoordinatesName" type="text" />
+			</div>
+			<div id="itemWvWLinksNorth" class="itemMapPeripheral">
+				<div id="wvwSwitch" class="mapHUDContainer">
+					<img id="wvwSwitchButton" class="mapHUDButton" title="<dfn> Click to Map </dfn>" src="http://app.gw2a.com/shared/gw2icons/ui/pages/map.png" alt="display" />
+				</div>
+				<div id="wvwGPS" class="mapHUDContainer">
+					<img id="wvwGPSButton" class="mapHUDButton" title="<dfn> Click to Center Character </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/gps.png" alt="GPS" />
+					<div id="wvwGPSPopup" class="mapHUDPopup cntComposition">
+						<label title="Automatically scroll the map to your in-game location."><img data-src="http://app.gw2a.com/shared/gw2icons/map/gps.png" /><input id="opt_bol_followCharacterWvW" type="checkbox" />Follow Game Character</label>
+						<label title="Automatically move the map character pin to your in-game location."><img data-src="http://app.gw2a.com/shared/gw2icons/map/pin_character.png" /><input id="opt_bol_displayCharacterWvW" type="checkbox" />Display Character Pin</label>
+					</div>
+				</div>
+				<div id="wvwOptions" class="mapHUDContainer">
+					<img id="wvwDisplayButton" class="mapHUDButton" title="<dfn> Click to Expand Map </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/display.png" alt="display" />
+					<div id="wvwOptionsPopup" class="mapHUDPopup cntComposition">
+						<div id="wvwOptionsDisplay">
+							<label title="Show/Hide all icons listed below.<br />Will increase initial site load time if enabled."><img data-src="http://app.gw2a.com/shared/gw2icons/map/completion.png" /><input id="opt_bol_showWorldCompletion" type="checkbox" /> Show completion</label>
+							<div id="wvwOptionsCompletion">
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/scope.png" /><input id="opt_bol_displaySectorsWvW" type="checkbox" /> Sector Names</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/waypoint_h.png" /><input id="opt_bol_displayWaypointsWvW" type="checkbox" /> Waypoints</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/landmark.png" /><input id="opt_bol_displayPOIsWvW" type="checkbox" /> POIs</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/vista.png" /><input id="opt_bol_displayVistasWvW" type="checkbox" /> Vistas</label>
+								<label><img data-src="http://app.gw2a.com/shared/gw2icons/map/challenge.png" /><input id="opt_bol_displayChallengesWvW" type="checkbox" /> Hero Challenges</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="wvwZones" class="mapHUDContainer">
+					<img id="wvwCompassButton" class="mapHUDButton" title="<dfn> Click to Center Map </dfn>" src="http://app.gw2a.com/shared/gw2icons/map/compass.png" alt="compass" />
+					
+				</div>
+			</div>
+			</article>
+		</section>
+	</div><!-- End of panelMap -->
+	<div id="panelApp" class="panelMain">
+		<var id="itemHome"></var>
+		<div id="paneSimple">
+			<div id="itemSimpleSD">
+				<var id="itemSimpleCurrentSD"></var>
+				<span> ≫ </span>
+				<time id="itemSimpleTime">00:00</time>
+				<span> ≫ </span>
+				<var id="itemSimpleNextSD"></var>
+			</div>
+			<div id="itemSimpleHC">
+				<var id="itemSimpleCurrentHC"></var>
+				<span> ≫ </span>
+				<var id="itemSimpleNextHC"></var>
+			</div>
+		</div>
+		<!-- Clock
+		==================================================================== -->
+		<section id="paneClock" class="paneApp clkSizeRegular">
+			<div id="paneClockWall" class="clkSizeRegular"></div>
+			<div id="paneClockBackground" class="clkSizeRegular"></div>
+			<img id="paneClockFace" class="clkSizeRegular" src="http://app.gw2a.com/shared/gw2icons/background/face.png" alt="Clock Face">
+			<div id="paneClockIcons" class="clkSizeRegular">
+				<img id="clkIconSD0" class="iconSD" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:00" />
+				<img id="clkIconSD1" class="iconSD" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:15" />
+				<img id="clkIconSD2" class="iconSD" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:30" />
+				<img id="clkIconSD3" class="iconSD" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:45" />
+				<img id="clkIconHC0" class="iconHC" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:00" />
+				<img id="clkIconHC1" class="iconHC" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:15" />
+				<img id="clkIconHC2" class="iconHC" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:30" />
+				<img id="clkIconHC3" class="iconHC" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:45" />
+			</div>
+			<svg id="clock" viewBox="0 0 100 100"><!-- x=50,y=50 is the center -->
+				<defs id="clkDefinitions"><!-- Shadow filters -->
+					<filter id="clkFilterShadowOuter" height="130%">
+						<feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+						<feOffset dx="0" dy="0" result="offsetblur" />
+						<feMerge> 
+							<feMergeNode /><!-- this contains the offset blurred image -->
+							<feMergeNode in="SourceGraphic" /><!-- this contains the element that the filter is applied to -->
+						</feMerge>
+					</filter>
+					<filter id="clkFilterShadowHand" x="-50%" y="-50%" width="200%" height="200%">
+						<feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur" />
+						<feOffset in="blur" dx="1" dy="1" result="shadow" />
+						<feComponentTransfer>
+							<feFuncA type="linear" slope="1"/><!-- Opacity of the shadow -->
+						</feComponentTransfer>
+						<feMerge> 
+							<feMergeNode/>
+							<feMergeNode in="SourceGraphic"/> 
+						</feMerge>
+					</filter>
+					<linearGradient id="clkGradientCircumference" x1="0%" y1="0%" x2="0%" y2="100%" spreadMethod="pad">
+						<stop offset="0%" stop-color="#555" stop-opacity="1"/>
+						<stop offset="100%" stop-color="#111" stop-opacity="1"/>
+					</linearGradient>
+				</defs>
+				<circle id="clkCircumference" cx="50" cy="50" r="45" filter="url(#clkFilterShadowOuter)" style="stroke:url(#clkGradientCircumference)" />
+				<path id="clkQuadrant" d="M50,50 L50,6 A44,44 0,0 1 94,50 z" /><!-- 1/4 slice of a circle -->
+				<g id="clkTicks"><!-- 12 hour tick marks -->
+					<line x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line x1="72.50" y1="11.03" x2="70.00" y2="15.36" />
+					<line x1="88.97" y1="27.50" x2="84.64" y2="30.00" />
+					<line x1="95.00" y1="50.00" x2="90.00" y2="50.00" />
+					<line x1="88.97" y1="72.50" x2="84.64" y2="70.00" />
+					<line x1="72.50" y1="88.97" x2="70.00" y2="84.64" />
+					<line x1="50.00" y1="95.00" x2="50.00" y2="90.00" />
+					<line x1="27.50" y1="88.97" x2="30.00" y2="84.64" />
+					<line x1="11.03" y1="72.50" x2="15.36" y2="70.00" />
+					<line x1="5.00" y1="50.00" x2="10.00" y2="50.00" />
+					<line x1="11.03" y1="27.50" x2="15.36" y2="30.00" />
+					<line x1="27.50" y1="11.03" x2="30.00" y2="15.36" />
+				</g>
+				<g id="clkMarkers">
+					<!-- 15 minute dividers for four events in an hour -->
+					<line id="clkMarker0" x1="50.00" y1="3.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker1" x1="97.00" y1="50.00" x2="90.00" y2="50.00" />
+					<line id="clkMarker2" x1="50.00" y1="97.00" x2="50.00" y2="90.00" />
+					<line id="clkMarker3" x1="3.00" y1="50.00" x2="10.00" y2="50.00" />
+					<!-- Markers for minimum and average time event ends -->
+					<line id="clkMarker0A" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker0B" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker1A" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker1B" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker2A" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker2B" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker3A" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+					<line id="clkMarker3B" x1="50.00" y1="5.00" x2="50.00" y2="10.00" />
+				</g>
+				<g id="clkHoursPrime">
+					<text x="50" y="18">12</text>
+					<text x="85" y="53">3</text>
+					<text x="50" y="87">6</text>
+					<text x="15" y="53">9</text>
+				</g>
+				<g id="clkHours">
+					<text x="68" y="22">1</text>
+					<text x="68" y="83">5</text>
+					<text x="32" y="83">7</text>
+					<text x="32" y="22">11</text>
+					<text x="81" y="35">2</text>
+					<text x="81" y="71">4</text>
+					<text x="19" y="71">8</text>
+					<text x="20" y="35">10</text>
+				</g>
+				<!-- Hands and markers initially point at 12 o'clock, JS will rotate them -->
+				<g id="clkHands" filter="url(#clkFilterShadowHand)">
+					<line id="clkHourHand" x1="50" y1="50" x2="50" y2="24"/>
+					<line id="clkMinuteHand" x1="50" y1="50" x2="50" y2="16"/>
+					<line id="clkSecondHand" x1="50" y1="50" x2="50" y2="16"/>
+				</g>
+			</svg>
+			<div id="clkWaypoints">
+				<img id="clkWaypoint0" class="cssWaypoint" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:00 Waypoint">
+				<img id="clkWaypoint1" class="cssWaypoint" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:15 Waypoint">
+				<img id="clkWaypoint2" class="cssWaypoint" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:30 Waypoint">
+				<img id="clkWaypoint3" class="cssWaypoint" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:45 Waypoint">
+			</div>
+			<time id="itemTimeLocal" class="itemTimeDigital">
+				<var id="itemTimeLocalActual" class="curToggle">00:00</var>
+			</time>
+			<time id="itemTimeDaytime" class="itemTimeDigital">
+				<span class="curHelp" title="<dfn>Daylight:</dfn> ☀<br /><dfn>Nighttime:</dfn> ☽<br />(Minutes Remaining)"><var id="itemTimeDayIcon"></var>&nbsp;<var id="itemTimeDayTime">16:00</var></span>
+			</time>
+			<div id="itemLanguage">
+				<span><img src="http://app.gw2a.com/shared/gw2icons/ui/language.png" alt="Language" /></span>
+				<ul id="itemLanguagePopup" class="cntPopup">
+					<li><a href="./?enu_Language=en">English</a></li>
+					<li><a href="./?enu_Language=de">Deutsch</a></li>
+					<li><a href="./?enu_Language=es">Español</a></li>
+					<li><a href="./?enu_Language=fr">Français</a></li>
+					<li><a href="./?enu_Language=cs">Čeština</a></li>
+					<li><a href="./?enu_Language=it">Italiano</a></li>
+					<li><a href="./?enu_Language=pl">Polski</a></li>
+					<li><a href="./?enu_Language=pt">Português</a></li>
+					<li><a href="./?enu_Language=ru">Русский</a></li>
+					<li><a href="./?enu_Language=zh">中文</a></li>
+					<li><a class="linkExternal" href="http://forum.renaka.com/topic/5529319/"><sub>Help Translate</sub></a></li>
+				</ul>
+			</div>
+			<div id="itemSocial">
+				<a class="linkExternal" title="<dfn>Learn GW2Timer's features :?</dfn>" href="http://forum.renaka.com/topic/5602037/">
+					<ins class="s16 s16_info"></ins>
+				</a>
+				<a class="linkExternal" title="<dfn>Follow GW2Timer on Twitter :)</dfn>" href="https://twitter.com/gw2timer">
+					<ins class="s16 s16_twitter"></ins>
+				</a>
+			</div>
+		</section>
+		<!-- Menu, if these IDs were changed, change the <article> tags' too
+		==================================================================== -->
+		<nav id="paneMenu" class="paneApp">
+			<kbd id="menuChains" title="<dfn>Chains:</dfn> Timers, Events, Schedule"><ins></ins><var class="jsTranslate">Timers</var></kbd>
+			<kbd id="menuMap" title="<dfn>Map:</dfn> Dailies, Nodes, JPs, Missions, TP, Checklists"><ins></ins><var class="jsTranslate">Tools</var></kbd>
+			<kbd id="menuHelp" title="<dfn>Help:</dfn> FAQ, About, Walkthrough"><ins></ins><var class="jsTranslate">Help</var></kbd>
+			<kbd id="menuOptions" title="<dfn>Options:</dfn> Display, Format, Alarm"><ins></ins><var class="jsTranslate">Options</var></kbd>
+		</nav>
+		<!-- Content mini-pane
+		==================================================================== -->
+		<section id="paneContent" class="paneApp">
+			<article id="plateChains" class="jsScrollable"><!-- This plate will be populated by JS -->
+				<div id="chnProgress"></div>
+				<div id="chnOptions">
+					<img id="optAlarmIcon" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="Mode"/><img id="optAlarmSpeaker" class="curClick" title="Click to preview audio." src="http://app.gw2a.com/shared/gw2icons/ui/speaker.png" alt="Alarm"/>
+					<img id="optChainsIcon" src="http://app.gw2a.com/shared/gw2icons/ui/toggle.png" alt="Toggle" />
+					<div id="chnOptionsPopup" class="cntComposition cntPopup">
+						<div id="chnOptionsLeft">
+							<b>Chain Options</b>
+							<label title="13:00:00 or 1:00:00 PM"><input id="opt_bol_use24Hour" type="checkbox" /> 24:00 / 12AM</label>
+							<label title="Hide the chain bars when you check them."><input id="opt_bol_hideChecked" type="checkbox" /> Hide checked bosses</label>
+							<label title="Active/orange scheduled bosses."><input id="opt_bol_expandWB" type="checkbox" /> Auto-expand events</label>
+							<label title="Inactive/gray chain bars."><input id="opt_bol_collapseChains" type="checkbox" /> Auto-collapse events</label>
+							<button id="optRestoreAllChains" class="btnUncheck" title="Unhide all world bosses and uncheck them."><img data-src="http://app.gw2a.com/shared/gw2icons/ui/uncheck.png" alt="Refresh" /></button>
+						</div>
+						<div id="chnOptionsRight">
+							<div id="optChainsToggle"><button id="optChainsExpand">+</button><button id="optChainsCollapse">−</button></div>
+							<fieldset name="int_setAlarm"><legend id="optAlarmLegend" class="jsTranslate">Alarm Mode</legend>
+								<label title="Turn off the alarm. Go to Options page, Alarm section for more info."><input id="opt_int_setAlarm" type="radio" name="int_setAlarm" /><var class="jsTranslate">Off</var></label>
+								<label title="Alert you when an unchecked chain starts. You can checkmark a chain by clicking its boss icon (left side of chain name)."><input id="optAlarmChecklist" type="radio" name="int_setAlarm" /><var class="jsTranslate">Checklist</var></label>
+								<label title="Alert you X minutes before a subscribed chain starts. You can subscribe to a chain by clicking its time (right side of chain name). Works with Living Story chains."><input id="optAlarmSubscription" type="radio" name="int_setAlarm" /><var class="jsTranslate">Subscription</var></label>
+							</fieldset>
+							<input id="opt_int_setVolume" type="range" min="0" max="100" step="5" title="Set volume." />
+							<button id="optMute" class="trdButton" title="Stop any current voices."><img data-src="http://app.gw2a.com/shared/gw2icons/ui/mute.png" alt="Mute" /></button>
+						</div>
+					</div>
+				</div>
+				<header id="headerChains_Scheduled">
+					<ins class="chn_scheduled"></ins>
+					<span class="jsTranslateCompound">Scheduled Bosses</span>
+				</header>
+				<section id="sectionChains_Scheduled">
+				</section>
+				<div id="itemDryTopClip" style="display:none;">
+					<img id="chnDryTopWaypoint0" class="chnDryTopWaypoint" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:00 Waypoint">
+					<img id="chnDryTopWaypoint1" class="chnDryTopWaypoint" src="http://app.gw2a.com/shared/gw2icons/ui/placeholder.png" alt="X:15 Waypoint">
+				</div>
+				<header id="headerChains_Drytop">
+					<ins class="chn_drytop"></ins>
+					<span class="jsTranslateCompound">Dry Top</span>
+					<kbd></kbd>
+				</header>
+				<section id="sectionChains_Drytop"></section>
+				<header id="headerChains_Legacy">
+					<ins class="chn_legacy"></ins>
+					<span class="jsTranslateCompound">Legacy Bosses</span>
+					<kbd></kbd>
+				</header>
+				<section id="sectionChains_Legacy"></section>
+				<header id="headerChains_Temple">
+					<ins class="chn_temple"></ins>
+					<span class="jsTranslateCompound">Orr Temples</span>
+					<kbd></kbd>
+				</header>
+				<section id="sectionChains_Temple"></section>
+				<header id="headerChains_Timetable">
+					<ins class="chn_timetable"></ins>
+					<span class="jsTranslateCompound">Full Timetable</span>
+					<kbd></kbd>
+				</header>
+				<section id="sectionChains_Timetable"></section>
+				<br />
+			</article>
+			<article id="plateMap" class="jsScrollable"></article><!-- Empty plates will be populated by AJAX -->
+			<article id="plateHelp" class="jsScrollable"></article>
+			<article id="plateOptions" class="jsScrollable">
+				<div class="cntComposition">
+					<header class="cntHeader jsTranslate">Options</header>
+					<br />
+					<h2>Timer</h2>
+					<div class="optFieldsets">
+						<fieldset name="int_setPredictor" title="What statistic should be used to predict (highlight) events of a chain? Auto will use your time of day to choose. Changes will take effect when the next chain starts. &lt;br /&gt;Min: for full population map&lt;br /&gt;Min-Avg: Min + (Avg - Min)/2&lt;br /&gt;Avg: for regular zerg size"><legend>Predictor</legend>
+							<label><input id="opt_int_setPredictor" type="radio" name="int_setPredictor" /> Auto</label>
+							<label><input type="radio" name="int_setPredictor" /> Min</label>
+							<label><input type="radio" name="int_setPredictor" /> Min-Avg</label>
+							<label><input type="radio" name="int_setPredictor" /> Avg</label>
+						</fieldset>
+						<fieldset name="int_setClock" title="Set the clock pane's size."><legend>Clock Pane</legend>
+							<label><input id="opt_int_setClock" type="radio" name="int_setClock" /> Compact</label>
+							<label><input type="radio" name="int_setClock" /> Full</label>
+							<label><input type="radio" name="int_setClock" /> Bar</label>
+							<label><input type="radio" name="int_setClock" /> None</label>
+						</fieldset>
+						<fieldset name="int_setDimming" title="Dim the clock background from bright to dark within 15 minutes or stay as so?"><legend>Clock Bg</legend>
+							<label><input id="opt_int_setDimming" type="radio" name="int_setDimming" /> Auto-dim</label>
+							<label><input type="radio" name="int_setDimming" /> Bright</label>
+							<label><input type="radio" name="int_setDimming" /> Dark</label>
+						</fieldset>
+					</div>
+					<h2>Map</h2>
+					<label title="Show/Hide the map area on the left."><input id="opt_bol_showMap" type="checkbox" /> Show the map</label>
+					<label title="Show/Hide GW2 official event countdowns and gem sales on the top right corner of the map pane. Requires reload."><input id="opt_bol_showDashboard" type="checkbox" /> Show the dashboard</label>
+					<span>For map options, hover over the <img class="cntIconExample" src="http://app.gw2a.com/shared/gw2icons/map/display.png" alt="Icon" /> button on the top right corner of the map pane.</span><br />
+					<br />
+					<h2>Alarm</h2>
+					<span>Voice announcement requires Chrome, Firefox, or IE11+. Hover over the speaker icon on the chains page to change alarm.</span>
+					<label title="This is based on the prediction. Will alert you when the final event in the unchecked or subscribed chain begins."><input id="opt_bol_alertArrival" type="checkbox" /> Alert the arrival of the actual boss</label>
+					<h3>Checklist Mode</h3>
+					<span>When should the program announce the next chain?</span>
+					<label title="This is every 15 minutes."><input id="opt_bol_alertAtStart" type="checkbox" /> When a new chain begins</label>
+					<label title="This is based on the prediction."><input id="opt_bol_alertAtEnd" type="checkbox" /> When the current world boss dies</label>
+					<label title="This is for either times."><input id="opt_bol_alertChecked" type="checkbox" /> Alert even if the boss is checked off</label>
+					<h3>Subscription Mode</h3>
+					<span>How many minutes before a subscribed chain starts should you be alerted? Enter 0 to disable an alarm. Checked off bosses are ignored.</span>
+					<label><input id="opt_int_alertSubscribedFirst" type="number" min="0" max="30" step="1" /> First Alarm</label>
+					<label><input id="opt_int_alertSubscribedSecond" type="number" min="0" max="30" step="1" /> Second Alarm</label>
+					<label title="This happens at server reset or timestamp expiration. Alarm must be in Subscription Mode."><input id="opt_bol_alertAutosubscribe" type="checkbox" /> Autosubscribe to today's daily world boss</label>
+					<label title="This is based on the prediction."><input id="opt_bol_alertUnsubscribe" type="checkbox" /> Unsubscribe from boss after it dies</label>
+					<br />
+					<h2>Trading</h2>
+					<label title="Regularly get the current buy and sell prices. This option must be enabled for notification of desired price range to work."><input id="opt_bol_refreshPrices" type="checkbox" /> Auto-refresh data and enable notification</label>
+					<label title="Will use the backup provider if unchecked."><input id="opt_bol_useMainTPSearch" type="checkbox" /> Use main TP search provider</label>
+					<label title="How many seconds before the program refreshes price and exchange data?"><input id="opt_int_secTradingRefresh" type="number" min="10" max="600" step="1" /> Seconds between refreshes</label>
+					<label title="How many calculators to show? If you pick a number lower than the current, data from the higher numbered calculators will be erased! Requires reload."><input id="opt_int_numTradingCalculators" type="number" min="1" max="250" step="1" /> Number of TP calculators</label>
+					<label title="How many items to show in the TP search result?"><input id="opt_int_numTradingResults" type="number" min="1" max="50" step="1" /> Number of TP search results</label>
+					<h2>Tools</h2>
+					<label title="Requires reload."><input id="opt_int_sizeNotepadFont" type="number" min="8" max="32" step="1" /> Notepad font size</label>
+					<label title="Requires reload."><input id="opt_int_sizeNotepadHeight" type="number" min="180" max="1080" step="1" /> Notepad height (pixels)</label>
+					<br />
+					<h2>Daily</h2>
+					<label title="If you missed some login rewards days, put the number of missed days here so the track rolls back from the official day."><input id="opt_int_shiftLogin" type="number" min="0" max="28" step="1" /> Login rewards track shift back (days)</label>
+					<label title="Automatically clear the world boss checklist on the daily reset time."><input id="opt_bol_clearChainChecklistOnReset" type="checkbox" /> Clear boss checklist on server reset (Midnight UTC)</label>
+					<label title="Automatically clear the dungeon and custom checklist on the daily reset time."><input id="opt_bol_clearPersonalChecklistOnReset" type="checkbox" /> Clear personal checklist on server reset</label>
+					<br />
+					<h2>Advanced</h2>
+					<label title="DST for showing ArenaNet Washington-US time."><input id="opt_bol_detectDST" type="checkbox" /> Detect Daylight Saving Time</label>
+					<label title="Promote GW2Timer.com by including the site's name in auto-copied clipboard text. Changes will take effect when the next chain starts."><input id="opt_bol_useSiteTag" type="checkbox" /> Affix site tag to clipboard text</label>
+					<br />
+					<h2>Defaults</h2>
+					<div class="optButtons">
+						<button id="optClearLocalStorage" title="Clear the localStorage which stores options and states, as if you visited for the first time.">Clear Website Memory</button>
+					</div>
+					<br />
+					<h2>Debug</h2>
+					<div class="optButtons">
+						<button id="optPrintLocalStorage" title="Read what is stored in your browser for this website. Most of these key-value pairs can be overriden directly via URL query string. Example: http://gw2timer.com/?bol_showMap=false&amp;int_setClock=3">Print Website Memory</button>
+						<div id="optTimestamps">
+							<div><time id="optTimestampServerReset">00:00</time> Next Server Reset (<time id="optTimeTillReset">00:00</time>)</div>
+							<div><time id="optTimestampUTC">00:00</time> UNIX Timestamp</div>
+							<div><time id="optTimestampLocalReset">00:00</time> Last Local Reset</div>
+						</div>
+					</div>
+					<br />
+				</div>
+			</article>
+		</section>
+	</div><!-- End of panelApp -->
+	</main>
+  </ion-content>
+</ion-view>

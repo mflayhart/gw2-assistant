@@ -21,6 +21,7 @@
 @import "scss/profile/profile.variables";
 @import "scss/bookmarks/bookmarks.variables";
 @import "scss/feed/feed.variables";
+@import "scss/guides/guides.variables";
 @import "scss/wordpress/wordpress.variables";
 @import "scss/layouts/layouts.variables";
 @import "scss/miscellaneous/miscellaneous.variables";
@@ -42,6 +43,10 @@
 @import "scss/feed/category-feeds.styles";
 @import "scss/feed/feed-entries.styles";
 @import "scss/feed/feeds-categories.styles";
+
+@import "scss/guides/category-guides.styles";
+@import "scss/guides/guides-entries.styles";
+@import "scss/guides/guides-categories.styles";
 
 @import "scss/wordpress/wordpress.styles";
 @import "scss/wordpress/post.styles";

@@ -6,7 +6,7 @@
 
 .bar.app-top-bar
 {
-	background-color: $top-bar-bg;
+	background: $top-bar-bg;
 
 	.title
 	{
@@ -147,4 +147,76 @@ ion-spinner.spinner-on-load
     color: darken($loading-color, 5);
 		font-weight: 500;
   }
+}
+
+h1 {
+	font-family: 'eb garamond';
+	font-variant: small-caps;
+}
+
+
+@media (max-width:680px) {
+	.logo {
+		width: 230px;
+	}
+}
+
+.auth-view .row {
+	height: 60vh!important;
+}
+
+.logo-subpage-wrap {
+	margin: 0 auto;
+	margin-top: 30px;
+	text-align: center;
+	height: 20vh;
+}
+
+.alternative-actions a.sign-up.button.button-small.button-clear {
+	min-width:50px;
+	width: 20%;
+}
+
+a.tab-item i.icon {
+	font-size: 1.5rem;
+}
+
+i.icon, a.tab-item span.tab-title {
+	color: white;
+}
+
+#menu-dashboard-content {
+	top:64px;
+}
+
+.bar {
+	height: 64px;
+}
+
+.has-header {
+	top:64px;
+}
+
+img.user-image.profile-page {
+	
+	border-radius: 50%;
+	width:8vh;
+	height: 8vh;
+	top:1.5vh;
+	right: 0;
+	left: auto!important;
+}
+
+.bar .title {
+	height: 64px;
+}
+
+.nav-bar-title {
+	text-transform: capitalize;
+	font: 600 18px $font2;
+}
+
+.profile-view .row.heading {
+	background-color: #f6f6f6;	
+	border-bottom: 1px solid #959595;
 }

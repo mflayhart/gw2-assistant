@@ -1,4 +1,4 @@
-angular.module('your_app_name.directives', [])
+angular.module('gw2assistant.directives', [])
 
 .directive('myTabs', function() {
 	return {
@@ -370,5 +370,30 @@ angular.module('your_app_name.directives', [])
 	};
 })
 
+.directive('postCard', function() {
+	return {
+		templateUrl: 'views/app/wordpress/post-card.html'
+	};
+})
+
+.directive('recursiveMenu', function($compile) {
+	return {
+		restrict: 'EACM',
+		priority: 100000,
+		compile: function(tElement, tAttr) {
+			var compiledContents, contents;
+			contents = tElement.contents().remove();
+			compiledContents = null;
+			return function(scope, iElement, iAttr) {
+				if (!compiledContents) {
+					compiledContents = $compile(contents);
+				}
+				compiledContents(scope, function(clone, scope) {
+					return iElement.append(clone);
+				});
+			};
+		}
+	};
+})
 
 ;

@@ -5,18 +5,18 @@
 		"image":"img/feeds/news.jpg",
 		"feed_sources":[
 			{
-				"id":"bbc",
-				"title":"BBC",
+				"id":"guild-wars-2",
+				"title":"Guild Wars 2",
 				"description":"The latest stories from the World section of the BBC News web site.",
 				"image":"img/feeds/logos/bbc.jpg",
-				"url":"http://feeds.bbci.co.uk/news/world/rss.xml"
+				"url":"https://www.guildwars2.com/en/feed/"
 			},
 			{
-				"id":"reuters",
-				"title":"Reuters",
+				"id":"twitter",
+				"title":"Twitter",
 				"description":"Reuters.com is your source for breaking news, business, financial and investing news, including personal finance and stocks. Reuters is the leading global provider of news, financial information and technology solutions to the world's media, financial institutions, businesses and individuals.",
 				"image":"img/feeds/logos/reuters.jpg",
-				"url":"http://feeds.reuters.com/Reuters/worldNews"
+				"url":"https://twitter.com/GuildWars2"
 			},
 			{
 				"id":"cnn",

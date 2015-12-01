@@ -1,26 +1,39 @@
 <ion-view class="signup-view auth-view" cache-view="false">
+  <ion-nav-bar class="view-navigation">
+  <ion-nav-back-button class="button-clear" style="display: block;">
+    <i class="ion-arrow-left-c"></i> Back
+  </ion-nav-back-button>
+  </ion-nav-bar>
   <ion-content scroll="false">
     <div class="row">
       <div class="col col-center">
         <div class="card sign-up-container">
           <form name="signup_form" class="" novalidate>
             <div class="item item-body">
+	            <label class="item item-input">
+					<input type="text" placeholder="Username" name="user_name" ng-model="user.userName" required>
+				</label>
+				<label class="item item-input">
+					<input type="text" placeholder="Display Name" name="display_name" ng-model="user.displayName" required>
+			  </label>
               <label class="item item-input">
-                <input type="email" placeholder="Email" name="user_email" ng-model="user.email" required>
+                	<input type="email" placeholder="Email" name="email" ng-model="user.email" required>
               </label>
-              <label class="item item-input" show-hide-container>
-                <input type="password" placeholder="Password" name="user_password" ng-model="user.password" required show-hide-input>
+              		<label class="item item-input" show-hide-container>
+			  		<input type="password" placeholder="Password" name="password" ng-model="user.password" required show-hide-input>
               </label>
             </div>
             <div class="item item-body bottom-content">
-              <button type="submit" class="button button-assertive button-block" ng-click="doSignUp()" ng-disabled="signup_form.$invalid">
+              <button type="submit" class="button button-assertive button-block" ng-click="doRegister()" ng-disabled="signup_form.$invalid">
                 Sign Up
               </button>
+              <p ng-show="error" class="message error">{{error}}</p>
             </div>
           </form>
         </div>
         <div class="alternative-actions">
-          <a class="log-in button button-small button-clear button-light" ui-sref="auth.login">
+	        <p style="display: inline-block;color:#e5e5e5;padding-top:10px;width:130px;">Already registered?</p>
+          <a class="log-in button button-small button-clear button-light" ui-sref="auth.login" style="padding-top: 6px;text-decoration: underline;font-weight: 600;">
             Log In
           </a>
         </div>
